@@ -11,6 +11,7 @@ const Exercises = ({ exercises,setExercises,bodyPart}) => {
   const indexOfFirstExercise=indexOfLastExercise-exercisesPerPage;
   const currentExercises=exercises.slice(indexOfFirstExercise,indexOfLastExercise);
   const paginate=(e,value)=>{
+    e.preventDefault();
     setCurrentPage(value);
     window.scrollTo({top:1800,behavior:'smooth'})
   }
@@ -24,7 +25,7 @@ const Exercises = ({ exercises,setExercises,bodyPart}) => {
        exercisesData = await fetchData(`https://exercisedb.p.rapidapi.com/exercises/bodyPart/${bodyPart}`,
          exerciseOptions);
       }
-      setExercises(exercisesData)
+      setExercises(exercisesData);
     }
     fetchExercisesData();
 
@@ -51,7 +52,8 @@ const Exercises = ({ exercises,setExercises,bodyPart}) => {
       </Stack>
       <Stack mt='100px' alignItems='center' >
       {
-        exercises.length>9&&(<Pagination 
+        exercises.length > 9&&
+        (<Pagination 
           color="standard" shape="rounded" defaultPage={1}
           count={Math.ceil(exercises.length/exercisesPerPage)}
           page={currentPage}
